@@ -74,7 +74,7 @@ flutter pub get
 
 ### 2. Configure Backend URL
 
-`lib/service/api_service.dart` now reads the backend URL from `API_BASE_URL` at build time. Use a different value for each target:
+`lib/service/api_service.dart` now reads the backend URL from `API_BASE_URL` at build time. The production default points to your Render backend. Override it when running locally:
 
 ```bash
 # Example for local web/dev builds

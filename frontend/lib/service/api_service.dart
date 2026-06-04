@@ -9,7 +9,7 @@ import '../models/Booking.dart';
 class ApiService {
   static const String baseUrl = String.fromEnvironment(
     'API_BASE_URL',
-    defaultValue: 'http://localhost:3000/api',
+    defaultValue: 'https://event-management-app-flutter.onrender.com/api',
   );
 
   // Get stored JWT token
