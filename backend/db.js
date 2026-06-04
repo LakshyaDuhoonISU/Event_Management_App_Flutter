@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
-mongoose.connect('mongodb://localhost:27017/event-booking');
+const mongoUri = process.env.MONGO_URI;
+
+if (!mongoUri) {
+    throw new Error('MONGO_URI is not defined');
+}
+
+mongoose.connect(mongoUri);
 
 const db = mongoose.connection;
 

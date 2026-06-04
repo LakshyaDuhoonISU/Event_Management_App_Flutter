@@ -1,7 +1,12 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 // Secret key for JWT
-const JWT_SECRET = 'itm';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET is not defined');
+}
 
 /**
  * Middleware to verify JWT token and authenticate user
@@ -13,9 +18,9 @@ const authenticate = async (req, res, next) => {
         const token = req.header('Authorization')?.replace('Bearer ', '');
 
         if (!token) {
-            return res.status(401).json({ 
-                success: false, 
-                message: 'Access denied. No token provided.' 
+            return res.status(401).json({
+                success: false,
+                message: 'Access denied. No token provided.'
             });
         }
 
@@ -24,9 +29,9 @@ const authenticate = async (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        res.status(401).json({ 
-            success: false, 
-            message: 'Invalid token.' 
+        res.status(401).json({
+            success: false,
+            message: 'Invalid token.'
         });
     }
 };
@@ -38,16 +43,16 @@ const authenticate = async (req, res, next) => {
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!req.user) {
-            return res.status(401).json({ 
-                success: false, 
-                message: 'Unauthorized. Please login first.' 
+            return res.status(401).json({
+                success: false,
+                message: 'Unauthorized. Please login first.'
             });
         }
 
         if (!roles.includes(req.user.role)) {
-            return res.status(403).json({ 
-                success: false, 
-                message: `Access denied. Required role: ${roles.join(' or ')}` 
+            return res.status(403).json({
+                success: false,
+                message: `Access denied. Required role: ${roles.join(' or ')}`
             });
         }
 

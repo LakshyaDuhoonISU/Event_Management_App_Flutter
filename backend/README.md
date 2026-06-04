@@ -29,15 +29,29 @@ cd backend
 npm install
 ```
 
-2. Make sure MongoDB is running on `localhost:27017`
+2. Create a `.env` file in the backend folder with your Atlas URI and JWT secret:
 
-3. Start the server:
+```env
+MONGO_URI=mongodb+srv://<db_username>:<db_password>@cluster0.exanp.mongodb.net/event-booking?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_jwt_secret
+PORT=3000
+```
+
+3. Make sure your Atlas cluster allows your current IP address in Network Access
+
+4. Start the server:
 
 ```bash
 npm start
 ```
 
-The server will run on `http://localhost:3000`
+The server will run on `http://localhost:3000` locally, or on the platform port in production.
+
+## Deployment Notes
+
+- Use MongoDB Atlas for the database.
+- Deploy this Express backend to a Node host such as Render, Railway, or Fly.io.
+- Set `MONGO_URI`, `JWT_SECRET`, and `PORT` in the host environment variables.
 
 ## User Roles
 

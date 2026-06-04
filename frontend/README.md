@@ -74,21 +74,17 @@ flutter pub get
 
 ### 2. Configure Backend URL
 
-Open `lib/service/api_service.dart` and update the base URL:
+`lib/service/api_service.dart` now reads the backend URL from `API_BASE_URL` at build time. Use a different value for each target:
 
-```dart
-// For Android Emulator:
-static const String baseUrl = 'http://10.0.2.2:3000/api';
+```bash
+# Example for local web/dev builds
+flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:3000/api
 
-// For iOS Simulator:
-static const String baseUrl = 'http://localhost:3000/api';
-
-// For physical device (use your computer's IP):
-static const String baseUrl = 'http://192.168.x.x:3000/api';
-
-// For web:
-static const String baseUrl = 'http://localhost:3000/api';
+# Example for a deployed backend
+flutter build web --release --dart-define=API_BASE_URL=https://your-backend-domain/api
 ```
+
+For Android emulators, physical devices, or iOS simulators, set `API_BASE_URL` to the backend address reachable from that device.
 
 ### 3. Configure Cloudinary (Required for Image Uploads)
 
